@@ -5,16 +5,24 @@
   "main": "command.js",
   "preferGlobal": true,
   "scripts": {
+    "start": "nodemon ./src1/server.js",
+    "debug": "nodemon --trace-warnings ./src1/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "quantran",
   "license": "MIT",
   "dependencies": {
+    "@hapi/hapi": "^20.2.2",
     "commander": "2.11.0",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
     "inquirer": "^8.2.4",
-    "mongoose": "^6.3.4"
+    "mongoose": "^6.3.4",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.16"
   },
   "bin": {
-    "quantran-cli": "./command.js"
+    "qt-cli": "./command.js"
   }
 }
