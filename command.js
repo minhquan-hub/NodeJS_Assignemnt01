@@ -1,9 +1,13 @@
 #!/usr/bin/env node
-// const program = require("commander");
-// const { prompt } = require("inquirer");
 const readline = require("readline");
+var exec = require("child_process").exec,
+  child;
 const generateMVC = require("./modules_cli/generate_mvc");
-const generateDatabase = require("./modules_cli/generate_database");
+
+const {
+  generateDatabaseMySQL,
+} = require("./modules_cli/generate_database/generate_mysql");
+const { generateDatabaseMongodb } = require("./modules_cli/generate_database/gererate_mongodb")
 
 const inquirer = readline.createInterface({
   input: process.stdin,
@@ -19,56 +23,47 @@ switch (process.argv[2]) {
     inquirer.question(
       "What do you want to database [mysql/mongodb]? ",
       (database) => {
-        generateDatabase.createConnectData(database);
+        if (database === "mysql") {
+          generateDatabaseMySQL();
+        } else if (database === "mongodb") {
+          generateDatabaseMongodb();
+        } else {
+          console.error("The database name is wrong. Please choose agian!");
+        }
         inquirer.close();
       }
     );
-    // generateDatabase.createConnectData();
     break;
+  case "mysql-migration":
+    const suffixName = process.argv[3];
+    child = exec(
+      `npx knex migrate:make ${suffixName} --knexfile ./src/db/knexfile.js`
+    );
+    inquirer.close();
+    break;
+  case "mysql-add-migration":
+    child = exec("npx knex migrate:latest --knexfile ./src/db/knexfile.js");
+    inquirer.close();
+    break;
+  case "mysql-seed":
+    child = exec('npx knex seed:run --knexfile ./src/db/knexfile.js')
+    inquirer.close();
+    break;
+  case "mongodb-seed": 
+      child = exec('node ./src/db/seeds/seed_datab.js');
   case "help":
-    console.log(process.argv);
     console.log(`
       Options:
-          mvc           Create MVC project
-          cre-db        Create file config database [mysql or mongodb]
+          mvc                         Create MVC project
+          cre-db                      Create file config database [mysql or mongodb]
+          mysql-migration <filename>  Add migration file database mysql
+          mysql-add-migration         Run migration file upload database mysql
+          mysql-seed                  Seed data mysql
+          mongodb-seed                Seed data mongodb 
       `);
+      inquirer.close();
     break;
   default:
+    console.error("Systax is wrong. Please enter again!");
+    inquirer.close();
 }
-
-// program.version("1.0.0").description("Build CLI");
-
-// program
-//   .command("model-view-controller")
-//   .alias("mvc")
-//   .description("Generate structor for MVC")
-//   .action(() => {
-//     generateMVC.buildStructor();
-//   });
-
-// program
-//   .command("create-database")
-//   .alias("cre-db")
-//   .description("Generate structor for database")
-//   .action(() => {
-//     inquirer.question(
-//       "What do you want to database (mysql/mongodb)? ",
-//       (database) => {
-//         generateDatabase.createConnectData(database);
-//         inquirer.close();
-//       }
-//     );
-//   });
-
-// program
-//     .help(`
-//   Function                  Alias        Description
-//   version                   v            To check the version of the customer-cli
-//   client-cli add            a            To add new customes in the database
-//   client-cli list           l            To check all the customes in the database
-//   client-cli update [_ID]   u            To update details for specific customes in the database
-//   client-cli remove [_ID]   r            To remove details for specific customes in the database
-//   client-cli find [NAME]    f            To find a specific customes in the database
-//   `)
-
-// program.parse(process.argv);

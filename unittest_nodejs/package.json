@@ -1,0 +1,20 @@
+{
+    "name": "convert-salary",
+    "version": "1.0.0",
+    "description": "convert salary",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon ./src/server.js",
+        "test": "jest --coverage "
+    },
+    "author": "user",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.20.0",
+        "dotenv": "^16.0.1",
+        "ejs": "^3.1.8",
+        "express": "^4.18.1",
+        "jest": "^28.1.0",
+        "nodemon": "^2.0.16"
+    }
+}
