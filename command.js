@@ -4,7 +4,6 @@ const readline = require("readline");
 var exec = require("child_process").exec,
     child;
 const generateMVC = require("./modules_cli/generate_mvc");
-
 const {
     generateDatabaseMySQL,
 } = require("./modules_cli/generate_database/generate_mysql");
