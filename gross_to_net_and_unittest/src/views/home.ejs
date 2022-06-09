@@ -1,0 +1,214 @@
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Gross To Net</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <header class="header mb-4">CÔNG CỤ TÍNH LƯƠNG GROSS/NET</header>
+    <div class="content container">
+        <div>
+            <div style=" float: left; overflow: hidden; width: 100% ">
+
+                <div id="ctl00_ContentPlaceHolder1_UpdatePanel2 ">
+                    <div class="row " style="float: left; margin: 0px; padding-bottom: 20px; ">
+                        <div class="col-md-6 col-sm-12 col-xs-12 p-2" style="padding-right: 0px; ">
+                            <div>
+                                <form id="form_convert col-md-6" method="POST" action="/">
+                                    <div class="title text-center">
+                                        Thu nhập
+                                    </div>
+
+                                    <div>
+                                        <span class="margin-top-5 ">Số Lương: </span><span id="idNhapLuong "
+                                            data-toggle="tooltip " data-placement="top "
+                                            data-title="Please enter number to salary ">
+                                            <input name="gross" type="text" maxlength="14 " style="width:150px; ">
+                                        </span>
+                                        <span> VND </span>
+                                        <div style="display:flex; margin-top: 10px; ">
+                                            <div style="margin-right: 10px ">Số người phụ thuộc: </div>
+                                            <select name="dependentPerson" value="0">
+                                                <option value="0 ">0 người</option>
+                                                <option value="1 ">1 người</option>
+                                                <option value="2 ">2 người</option>
+                                                <option value="3 ">3 người</option>
+                                                <option value="4 ">4 người</option>
+                                                <option value="5 ">5 người</option>
+                                                <option value="6 ">6 người</option>
+                                                <option value="7 ">7 người</option>
+                                            </select>
+                                        </div>
+
+                                        <div style="display:flex; margin-top: 10px; ">
+                                            <div style="margin-right: 10px ">Khu vực: </div>
+                                            <select name="area">
+                                                <option value="1 ">Khu vực I</option>
+                                                <option value="2 ">Khu vực II</option>
+                                                <option value="3 ">Khu vực III</option>
+                                                <option value="4 ">Khu vực IV</option>
+                                            </select>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div>
+                                        <div>
+                                        </div>
+                                        <div class="f-boder "></div>
+                                        <div style="clear: both; ">
+                                        </div>
+                                        <div>
+                                        </div>
+                                        <div style="clear: both; ">
+                                        </div>
+                                        <div style="margin-top: 60px; text-align: center; ">
+                                            <Button id="clienGrossi " class="form-control btn-primary bg-orange "
+                                                type="submit" value="Gross To Net ">Gross To Net</Button>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12 ">
+                            <div id="blockUI " style="padding: 5px; float: right; z-index: 3; width: 96% ">
+                                <div style="z-index: 5; ">
+                                    <div class="title " style="text-align: center ">
+                                        Mô tả (VND)
+                                    </div>
+                                    <div>
+                                        <table class="datalist ">
+                                            <tbody>
+                                                <tr style="background-color: #848181;" class="rownote ">
+                                                    <th style="width: 300px; ">
+                                                        Tổng lương
+                                                    </th>
+                                                    <td style="width: 105px; ">
+                                                        <strong>
+                                                            <span id="ctl00_ContentPlaceHolder1_lblGrossSalary ">
+                                                                <%=gross%>
+                                                            </span></strong>
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #E6E6E6; ">
+                                                    <th>
+                                                        Bảo hiểm xã hội (8 %)
+                                                    </th>
+                                                    <td>
+                                                        <span id="ctl00_ContentPlaceHolder1_lblSocialInsurance ">
+                                                            <%=socialInsurance%>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #E6E6E6; ">
+                                                    <th>
+                                                        Bảo hiểm y tế (1.5 %)
+                                                    </th>
+                                                    <td>
+                                                        <span id="ctl00_ContentPlaceHolder1_lblHealthInsurance ">
+                                                            <%=healthInsurance%>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #E6E6E6; ">
+                                                    <th>
+                                                        Bảo hiểm thất nghiệp (1 %)
+                                                    </th>
+                                                    <td>
+                                                        <span id="ctl00_ContentPlaceHolder1_lblThatNghiep ">
+                                                            <%=unemploymentInsurance%>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #848181;" class="rownote ">
+                                                    <th style="width: 300px; ">
+                                                        Thu nhập trước thuế
+                                                    </th>
+                                                    <td style="width: 105px; ">
+                                                        <strong>
+                                                            <span id="ctl00_ContentPlaceHolder1_lblGrossSalary ">
+                                                                <%=incomeBeforeTax%>
+                                                            </span></strong>
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #E6E6E6; ">
+                                                    <th>
+                                                        Giảm trừ gia cảnh
+                                                    </th>
+                                                    <td>
+                                                        <span
+                                                            id="ctl00_ContentPlaceHolder1_lblGiamTruCaNhan ">11000000</span>
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #E6E6E6; ">
+                                                    <th>
+
+                                                        Giảm trừ phụ thuộc
+                                                    </th>
+                                                    <td>
+                                                        <span
+                                                            id="ctl00_ContentPlaceHolder1_lblGiamTruPhuThuoc ">0</span>
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #848181;" class="rownote ">
+                                                    <th style="width: 300px; ">
+                                                        Thu nhập chịu thuế
+                                                    </th>
+                                                    <td style="width: 105px; ">
+                                                        <strong>
+                                                            <span id="ctl00_ContentPlaceHolder1_lblGrossSalary ">
+                                                                <%=incomeTaxable%>
+                                                            </span></strong>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        Thuế thu nhập cá nhân
+                                                    </th>
+                                                    <td>
+                                                        <span id="ctl00_ContentPlaceHolder1_lblIncomeTax ">
+                                                            <%=personIncomeTax%>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="rownote " style="background-color: #848181 ">
+                                                    <td>
+                                                        <b>Lương thực nhận </b>
+                                                        <br>
+                                                    </td>
+                                                    <td>
+                                                        <strong>
+                                                            <span id="ctl00_ContentPlaceHolder1_lblNetSalary ">
+                                                                <%=net%>
+                                                            </span></strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both; ">
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div style="clear: both; ">
+            </div>
+        </div>
+    </div>
+    </nav>

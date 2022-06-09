@@ -1,0 +1,20 @@
+version: '3'
+services:
+  mysql_5.7:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: gross_to_net
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    ports: 
+      - 32769:3306
+    restart: always
+  
+  mongo_db:
+    image: mongodb:5.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    restart: always
